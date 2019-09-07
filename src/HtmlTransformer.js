@@ -53,21 +53,21 @@ module.exports = new Transformer({
 
     const files = await asset.fs.readdir(translationDir)
 
-    return Promise.all(files.concat('_').map(async (name) => {
+    return Promise.all(files.concat('_').map(async (name) => { // TODO: cache getTrObjects ast
       let lang
-      let out
+      let langCode
       let realPath
 
       if (name === '_') {
         lang = {}
-        out = config.sourceLanguage
+        langCode = config.sourceLanguage
       } else {
         realPath = path.join(translationDir, name)
         lang = await JSON.parse(String(asset.fs.readFile() || {}))
-        out = path.basename(name, '.json')
+        langCode = path.basename(name, '.json')
       }
 
-      let newAst = asset.ast.clone()
+      let newAst = JSON.parse(JSON.stringify(asset.ast))
       const tr = getTrObjects(newAst)
 
       let keys = []
@@ -98,7 +98,16 @@ module.exports = new Transformer({
         fs.writeFileSync(realPath, JSON.stringify(lang, null, 2))
       }
 
-      // return some asset with path.join(out, asset.filePath) or sth like that
+      // return some asset with path.join(langCode, asset.filePath) or sth like that
+
+      return {
+        type: 'html',
+        ast: newAst,
+        meta: { // TODO: fix this
+          filePath: asset.filePath,
+          outPath: path.join(langCode, asset.filePath)
+        }
+      }
     }))
   },
 
