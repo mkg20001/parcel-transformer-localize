@@ -1,0 +1,39 @@
+{
+  "name": "parcel-transformer-localize",
+  "version": "0.0.1",
+  "description": "Localize your static pages, quick and simple",
+  "main": "src/HtmlTransformer.js",
+  "engines": {
+    "node": ">= 8.0.0",
+    "parcel": "^2.0.0-alpha.1.1"
+  },
+  "dependencies": {
+    "@parcel/plugin": "^2.0.0-alpha.1.1"
+  },
+  "scripts": {
+    "test": "mocha test/*.js"
+  },
+  "keywords": [
+    "parcel",
+    "transformer",
+    "localize",
+    "l10n",
+    "localization"
+  ],
+  "author": "Maciej Krüger <mkg20001@gmail.com>",
+  "license": "MPL-2.0",
+  "devDependencies": {
+    "mocha": "^6.2.0"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mkg20001/parcel-transformer-localize.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mkg20001/parcel-transformer-localize/issues"
+  },
+  "homepage": "https://github.com/mkg20001/parcel-transformer-localize#readme"
+}
