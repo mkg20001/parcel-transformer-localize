@@ -1,0 +1,6 @@
+sourceLanguage: 'en'
+translationPath: './l10n'
+
+# autoAdd: true
+# autoRemove: true
+# placeholderCharacter: 'æ'
