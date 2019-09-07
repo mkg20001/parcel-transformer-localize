@@ -12,7 +12,7 @@ function parseTrString (str) {
 
   let out = ''
 
-  while (str.length < i) {
+  while (str.length > i) {
     let cur = str[i]
     let next = str[i + 1]
     if (cur === '\\' && next === placeholderCharacter) {
@@ -20,6 +20,7 @@ function parseTrString (str) {
       i++ // dbl increase
     } else if (cur === placeholderCharacter) {
       split.push(out)
+      out = ''
     } else {
       out += cur
     }
@@ -30,7 +31,7 @@ function parseTrString (str) {
     split.push(out)
   }
 
-  return out
+  return split
 }
 
 function stringifyTrList (list) {
@@ -57,58 +58,23 @@ function getTrObjects (ast) {
 
   /*
   let conv1 = [
-    {
+    { // 0
       tag: 'translate',
       attrs: {},
       content: [
-        'hello',
+        'hello', // :0
         {
-          tag: 'h2',
+          tag: 'h2', // :1
           attrs: {},
-          content: ['world']
+          content: ['world'] // :1.0
         }
       ]
     }
   ]
 
   trList = ['Hello', 'world']
+  refList = [[0], [1, 0]]
   */
-
-  /* let trs = []
-
-  function process (el) {
-    let tr = {
-      mainRef: el.content,
-      ref: [],
-      list: {}
-    }
-
-    processTr(el.content, tr)
-
-    return el.content
-  }
-
-  function walk (el) {
-    if (el.tag === 'translate') { // do our magic
-      return process(el)
-    } else {
-      el.content = walkArray(el.content)
-      return el
-    }
-  }
-
-  function walkArray (ar) {
-    return ar.map(walk).reduce((a, b) => {
-      if (Array.isArray(b)) a = a.concat(b)
-      else a.push(b)
-
-      return a
-    }, [])
-  }
-
-  ast = walkArray(ast)
-
-  return {ast, trs} */
 
   let tr = []
 
@@ -142,6 +108,8 @@ function getTrObjects (ast) {
         ast,
         string: stringifyTrList(str)
       })
+    } else {
+      walkArray(el.content, id)
     }
   }
 
@@ -152,6 +120,8 @@ function getTrObjects (ast) {
   }
 
   walkArray(ast, [])
+
+  return tr
 }
 
 function idToPath (id) {

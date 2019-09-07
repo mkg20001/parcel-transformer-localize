@@ -8,7 +8,8 @@
     "parcel": "^2.0.0-alpha.1.1"
   },
   "dependencies": {
-    "@parcel/plugin": "^2.0.0-alpha.1.1"
+    "@parcel/plugin": "^2.0.0-alpha.1.1",
+    "dset": "^2.0.1"
   },
   "scripts": {
     "test": "mocha test/*.js"

@@ -13,8 +13,8 @@ const testCases = [ // out lang is 'de' (german), use gtranslate if you don't kn
   },
   {
     in: '<h2><translate>Hello <b>World</b></translate></h2>',
-    translate: 'Hello æWorldæ',
-    translated: 'Hallo æWeltæ',
+    translate: 'Hello æWorld',
+    translated: 'Hallo æWelt',
     out: '<h2>Hallo <b>Welt</b></h2>'
   }
 ]
@@ -36,11 +36,12 @@ describe('simple translate test', () => {
       })
 
       it('produces proper translation object', () => {
+        assert.strict.deepEqual(tr.length, 1)
         assert.strict.deepEqual(tr[0].string, c.translate)
       })
 
       it('can apply translation', () => {
-        applyTr(ast, c.translated)
+        applyTr(tr[0], c.translated)
       })
 
       it('produces correct HTML', () => {
