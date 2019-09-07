@@ -83,9 +83,7 @@ module.exports = new Transformer({
           keys.push(translation.string)
         }
 
-        if (translated) {
-          applyTr(translation, translated)
-        }
+        applyTr(translation, translated)
       })
 
       if (!isProd && config.autoRemove) {
