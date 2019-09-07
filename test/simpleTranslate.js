@@ -1,4 +1,4 @@
-import {getTrObjects, applyTr} from './utils'
+'use strict'
 
 /* eslint-env mocha */
 
@@ -19,12 +19,14 @@ const testCases = [ // out lang is 'de' (german), use gtranslate if you don't kn
   }
 ]
 
+const {getTrObjects, applyTr} = require('../src/utils')
+
 const parser = require('posthtml-parser')
 const render = require('posthtml-render')
 
-define('simple translate test', () => {
+describe('simple translate test', () => {
   testCases.forEach((c, i) => {
-    define(`case ${i}`, () => {
+    describe(`case ${i}`, () => {
       let ast
       let tr
 

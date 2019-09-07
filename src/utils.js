@@ -1,3 +1,5 @@
+'use strict'
+
 const placeholderCharacter = 'æ'
 
 function parseTrString (str) {
@@ -27,8 +29,26 @@ function getTrObjects (ast) {
 
   */
 
+  /*
+  for '<translate><h2>test <b>you</b></h2>'
+
+  astRef: [linkToTextNode, linkToTextNode],
+  trList: ['test ', 'you']
+  */
+
+  console.log(ast)
 }
 
 function applyTr (translation, translated) {
+  /*
 
+  1. Parse translated using parseTrString
+  2. Link from astRef, overwrite
+
+  */
+}
+
+module.exports = {
+  getTrObjects,
+  applyTr
 }

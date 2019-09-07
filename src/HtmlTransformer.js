@@ -1,13 +1,15 @@
-import {Transformer} from '@parcel/plugin'
-import parse from 'posthtml-parser'
-import nullthrows from 'nullthrows'
-import render from 'posthtml-render'
-import semver from 'semver'
+'use strict'
 
-import path from 'path'
-import fs from 'fs'
+const {Transformer} = '@parcel/plugin'
+const parse = require('posthtml-parser')
+const nullthrows = require('nullthrows')
+const render = require('posthtml-render')
+const semver = require('semver')
 
-import {getTrObjects, applyTr} from './utils'
+const path = require('path')
+const fs = require('fs')
+
+const {getTrObjects, applyTr} = require('./utils')
 
 const defaults = {
   sourceLanguage: 'en',
@@ -16,7 +18,7 @@ const defaults = {
   autoRemove: true
 }
 
-export default new Transformer({
+module.exports = new Transformer({
   async getConfig ({asset}) {
     const config =
       (await asset.getConfig(['.localize', '.localize.js', 'localize.config.js'])) || {}
