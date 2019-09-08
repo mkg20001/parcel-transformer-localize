@@ -1,6 +1,6 @@
 'use strict'
 
-const {Transformer} = '@parcel/plugin'
+const {Transformer} = require('@parcel/plugin')
 const parse = require('posthtml-parser')
 const nullthrows = require('nullthrows')
 const render = require('posthtml-render')
@@ -48,12 +48,12 @@ module.exports = new Transformer({
       }
     }
 
-    const isProd = options.production
-    const translationDir = null // TODO: add
+    const isProd = options.mode === 'production'
+    const translationDir = path.join(options.projectRoot, config.translationPath)
 
     const files = await asset.fs.readdir(translationDir)
 
-    return Promise.all(files.concat('_').map(async (name) => { // TODO: cache getTrObjects ast
+    await Promise.all(files.concat('_').map(async (name) => { // TODO: cache getTrObjects ast
       let lang
       let langCode
       let realPath
@@ -63,11 +63,11 @@ module.exports = new Transformer({
         langCode = config.sourceLanguage
       } else {
         realPath = path.join(translationDir, name)
-        lang = await JSON.parse(String(asset.fs.readFile() || {}))
+        lang = await JSON.parse(String(await asset.fs.readFile(realPath)) || '{}')
         langCode = path.basename(name, '.json')
       }
 
-      let newAst = JSON.parse(JSON.stringify(asset.ast))
+      let newAst = JSON.parse(JSON.stringify(asset.ast.program))
       const tr = getTrObjects(newAst)
 
       let keys = []
@@ -109,6 +109,8 @@ module.exports = new Transformer({
         }
       }
     }))
+
+    return [asset]
   },
 
   generate ({asset}) {

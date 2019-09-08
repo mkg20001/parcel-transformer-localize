@@ -9,7 +9,8 @@
   },
   "dependencies": {
     "@parcel/plugin": "^2.0.0-alpha.1.1",
-    "dset": "^2.0.1"
+    "dset": "^2.0.1",
+    "nullthrows": "^1.1.1"
   },
   "scripts": {
     "test": "mocha test/*.js"

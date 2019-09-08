@@ -83,7 +83,9 @@ function getTrObjects (ast) {
       str.push(el)
       refs.push(id)
     } else {
-      walkTranslateArray(el.content, id, refs, str)
+      if (el.content) {
+        walkTranslateArray(el.content, id, refs, str)
+      }
     }
   }
 
@@ -99,16 +101,18 @@ function getTrObjects (ast) {
     if (el.tag === 'translate') {
       let refs = []
       let str = []
-      walkTranslateArray(el.content, [], refs, str)
+      if (el.content) {
+        walkTranslateArray(el.content, [], refs, str)
 
-      tr.push({
-        id,
-        el,
-        refs,
-        ast,
-        string: stringifyTrList(str)
-      })
-    } else {
+        tr.push({
+          id,
+          el,
+          refs,
+          ast,
+          string: stringifyTrList(str)
+        })
+      }
+    } else if (el.content) {
       walkArray(el.content, id)
     }
   }
