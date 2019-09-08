@@ -1,6 +1,6 @@
 {
   "name": "parcel-transformer-localize",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Localize your static pages, quick and simple",
   "main": "src/HtmlTransformer.js",
   "engines": {
